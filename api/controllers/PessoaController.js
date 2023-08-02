@@ -59,6 +59,21 @@ class PessoaController {
       return res.status(500).send(error.message)
     }
   }
+
+  static async getRegistration(req, res) {
+    const { estudanteId , matriculaId} = req.params
+    try { 
+      const reg = await database.Matriculas.findOne({
+        where: {
+          id: Number(matriculaId),
+          estudante_id: Number(estudanteId)
+        }
+      })
+      return res.status(200).json(reg)
+    } catch (error) {
+      return res.status(500).json(error.message)
+    }
+  }
 }
 
 module.exports = PessoaController
